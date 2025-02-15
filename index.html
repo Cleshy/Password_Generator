@@ -1,9 +1,69 @@
-<html>
+<!DOCTYPE html>
+<html lang="en">
   <head>
+    <!-- Google Font - Karla -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Karla:ital,wght@0,200..800;1,200..800&display=swap"
+      rel="stylesheet"
+    />
     <link rel="stylesheet" href="index.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Password Generator</title>
   </head>
   <body>
-    <h1></h1>
+    <div class="container">
+      <div class="generator-container">
+        <h1 class="heading">Generate a <span>random password</span></h1>
+        <p class="description">Never use an insecure password again.</p>
+        <div class="settings">
+          <p class="pw-length-text">Password length</p>
+          <div class="pw-length-setter">
+            <button class="btn btn-small btn-setter">-</button>
+            <p class="pw-length">10</p>
+            <button class="btn btn-small btn-setter">+</button>
+          </div>
+          <div class="checkbox-container">
+            <label for="symbol">
+              <input
+                class="checkBox"
+                type="checkbox"
+                name=""
+                id="symbol"
+                checked
+              />
+              Symbols
+            </label>
+            <label for="number">
+              <input
+                class="checkBox"
+                type="checkbox"
+                name=""
+                id="number"
+                checked
+              />
+              Numbers
+            </label>
+          </div>
+        </div>
+        <button id="generateBtn" class="btn btn-large btn-generate">
+          Generate passwords
+        </button>
+        <div class="btn-container">
+          <button class="btn btn-large btn-pw">egxWij@veiPUwK</button>
+          <button class="btn btn-large btn-pw">egxWij@veiPUwK</button>
+        </div>
+      </div>
+    </div>
+    <script
+      type="module"
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
+    ></script>
+    <script
+      nomodule
+      src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
+    ></script>
     <script src="index.js"></script>
   </body>
 </html>

@@ -1,3 +1,212 @@
-body {
-  margin: 0;
+/*
+
+
+- Állítható legyen a jelszó hosszúsága -> max 20 karakter
+- Ha rákattint a felhasználó a mezőre, másolja ki a jelszót
+- Checkbox -> A felhasználó akar szimbólumot vagy nem
+           -> A felhasználó akar számot vagy sem
+
+
+
+*/
+
+/* =================
+   Root Variables
+   ================= */
+:root {
+  --bg-body: #1c1c1c;
+
+  --btn-bg-color-1: #10b981;
+  --btn-bg-color-1-darker: #047857;
+  --btn-bg-color-2: #273549;
+  --btn-bg-color-2-darker: #1b2533;
+
+  --btn-text-color: #10b981;
+  --password-color: #5def92;
+
+  --heading-color-dark-1: #ffffff;
+  --heading-color-dark-2: #4adf86;
+
+  --heading-color-light-1: #2b283a;
+  --heading-color-light-2: #10b981;
+
+  --bg-container-dark: #1f2937;
+  --bg-container-light: #ecfdf5;
+
+  --text-color-dark: #d5d4d8;
+  --text-color-light: #6b7280;
+
+  --divider-dark: #2f3e53;
+  --divider-light: #d5d4d8;
 }
+
+/* =================
+   Base Styles
+   ================= */
+
+*,
+*::before,
+*::after {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  background-color: var(--bg-body);
+  font-family: "Karla", serif;
+  width: 100vw;
+  height: 100vh;
+  font-size: 1.125rem;
+  padding: 0.75em;
+}
+
+p,
+button {
+  font-family: "Inter", serif;
+}
+
+/* =================
+   PW Generator App
+   ================= */
+
+.heading {
+  color: var(--heading-color-light-1);
+  font-size: 2rem;
+  font-weight: 800;
+  margin-bottom: 0.3125em;
+  line-height: 1;
+}
+
+.heading span {
+  color: var(--heading-color-light-2);
+  font-size: 1.75rem;
+}
+
+.description {
+  margin-bottom: 1em;
+  color: var(--text-color-light);
+}
+
+.container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100%;
+}
+
+.generator-container {
+  background-color: var(--bg-container-light);
+  padding: 1em;
+  max-width: 550px;
+  text-align: center;
+  border-radius: 6px;
+}
+
+.icon {
+  font-size: 1.75rem;
+  background-color: var(--bg-container-light);
+  border-radius: 50%;
+  padding: 0.25em;
+}
+
+.btn-container {
+  margin-top: 1em;
+  border-top: 1px solid var(--divider-dark);
+  padding-top: 1em;
+}
+
+.btn {
+  width: 100%;
+  border-radius: 6px;
+  border: none;
+  letter-spacing: 1px;
+  font-size: 1rem;
+  cursor: pointer;
+  position: relative;
+  transition: all 0.3s ease;
+}
+
+.btn-small {
+  padding: 0.25em 0;
+}
+.btn-large {
+  padding: 1em 0;
+}
+
+.btn-setter {
+  background-color: var(--btn-bg-color-2);
+  color: var(--btn-text-color);
+  font-size: 1.5rem;
+}
+
+.btn-setter:hover,
+.btn-setter:focus {
+  background-color: var(--btn-bg-color-1);
+  color: #fff;
+}
+
+.btn-generate {
+  background-color: var(--btn-bg-color-1);
+  color: #fff;
+}
+
+.btn-generate:hover,
+.btn-generate:focus {
+  background-color: var(--btn-bg-color-1-darker);
+}
+
+.btn-pw {
+  background-color: var(--btn-bg-color-2);
+  color: var(--password-color);
+  margin-bottom: 0.5em;
+}
+
+.btn-pw:hover {
+  background-color: var(--btn-bg-color-2-darker);
+}
+
+/* =================
+   Settings
+   ================= */
+
+.pw-length-setter {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 1rem;
+  margin: 0.75em 0 0 0;
+}
+
+.pw-length-setter > * {
+  flex: 0 2em;
+}
+
+.checkbox-container {
+  padding: 1em 0;
+  display: flex;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+label {
+  font-size: 1.25rem;
+  font-weight: 400;
+  display: flex;
+  align-items: center;
+  gap: 0.25em;
+  cursor: pointer;
+}
+
+input[type="checkbox"] {
+  width: 25px;
+  height: 25px;
+  accent-color: var(--btn-bg-color-1); /* Modern böngészőkben működik */
+}
+
+/* Check out the link for checkbox styling 
+https://moderncss.dev/pure-css-custom-checkbox-style/ */
+
+/* =================
+   Media Queries
+   ================= */

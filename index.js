@@ -91,3 +91,11 @@ const characters = [
   "?",
   "/",
 ];
+
+let btnEl = document.getElementById("generateBtn");
+
+btnEl.addEventListener("click", function () {
+  console.log("Hi!");
+});
+
+function generatePassword() {}
