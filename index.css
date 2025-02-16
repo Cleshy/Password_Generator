@@ -116,7 +116,8 @@ button {
   padding-top: 1em;
 }
 
-.btn {
+.btn,
+.btn::after {
   width: 100%;
   border-radius: 6px;
   border: none;
@@ -160,15 +161,33 @@ button {
   background-color: var(--btn-bg-color-2);
   color: var(--password-color);
   margin-bottom: 0.5em;
+  min-height: 52px;
+  position: relative;
 }
 
-.btn-pw:hover {
-  background-color: var(--btn-bg-color-2-darker);
+.btn-pw::after {
+  content: "Copy";
+  position: absolute;
+  display: block;
+  top: 0;
+  height: 100%;
+  transition: all 0.3s ease;
+  color: transparent;
+  padding-top: 1em;
+}
+
+.btn-pw:hover::after {
+  background-color: rgba(0, 0, 0, 0.8);
+  color: var(--password-color);
 }
 
 /* =================
    Settings
    ================= */
+
+.pw-length-text {
+  font-weight: bold;
+}
 
 .pw-length-setter {
   display: flex;
