@@ -18,11 +18,13 @@
         <h1 class="heading">Generate a <span>random password</span></h1>
         <p class="description">Never use an insecure password again.</p>
         <div class="settings">
-          <p class="pw-length-text">Password length</p>
-          <div class="pw-length-setter">
-            <button id="decrease" class="btn btn-small btn-setter">-</button>
-            <p class="pw-length">8</p>
-            <button id="increase" class="btn btn-small btn-setter">+</button>
+          <div class="pw-length-container">
+            <p class="pw-length-text">Password length</p>
+            <div class="pw-length-setter">
+              <button id="decrease" class="btn btn-small btn-setter">-</button>
+              <p class="pw-length">8</p>
+              <button id="increase" class="btn btn-small btn-setter">+</button>
+            </div>
           </div>
           <div class="checkbox-container">
             <label for="symbols">
@@ -51,8 +53,14 @@
           Generate passwords
         </button>
         <div class="btn-container">
-          <button id="pw-1" class="btn btn-large btn-pw"></button>
-          <button id="pw-2" class="btn btn-large btn-pw"></button>
+          <button id="pw-1" class="btn btn-large btn-pw">
+            <span class="btn-pw-text"></span>
+            <span class="copy-msg">Copied!</span>
+          </button>
+          <button id="pw-2" class="btn btn-large btn-pw">
+            <span class="btn-pw-text"></span>
+            <span class="copy-msg">Copied!</span>
+          </button>
         </div>
       </div>
     </div>

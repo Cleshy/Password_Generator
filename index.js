@@ -92,17 +92,12 @@ const characters = [
   "/",
 ];
 
-/*
-
-Feladatok:
-
-1. Ha a felhasználó a "Generate passwords" gombra kattint,
-   generáljon neki két véletlenszerű jelszót, a fenti tömbből. - max 15 karakter
-2. A + és a - jellel növelhető legyen a hosszúsága a jelszónak. - Max 20 karakterig
-3. Ha a felhasználó kikapcsolja a symbolt akkor ne generáljon szimbólumot a jelszóba
-4. Ha a felhasználó kikapcsolja a numberst akkor ne generáljon számokat a jelszóba
-
-*/
+let btnGenerate = document.querySelector(".btn-generate");
+let passwordButtons = document.querySelectorAll(".btn-pw");
+let passwordTexts = document.querySelectorAll(".btn-pw-text");
+let btnSetters = document.querySelectorAll(".btn-setter");
+let pwLength = document.querySelector(".pw-length");
+let checkboxElements = document.querySelectorAll(".checkBox");
 
 const MIN_CHAR_LENGTH = 8;
 const MAX_CHAR_LENGTH = 20;
@@ -114,13 +109,22 @@ const charactersOptions = {
   numbers: true,
 };
 
-let btnGenerate = document.querySelector(".btn-generate");
-let passwordElements = document.querySelectorAll(".btn-pw");
+const copyPassword = () => {
+  passwordButtons.forEach((passwordBtn) => {
+    passwordBtn.addEventListener("click", (e) => {
+      const button = e.target.closest(".btn-pw");
+      const btnText = button.querySelector(".btn-pw-text").textContent;
 
-let btnSetters = document.querySelectorAll(".btn-setter");
-let pwLength = document.querySelector(".pw-length");
+      navigator.clipboard.writeText(btnText).then(() => {
+        button.classList.add("copied");
 
-let checkboxElements = document.querySelectorAll(".checkBox");
+        setTimeout(() => {
+          button.classList.remove("copied");
+        }, 1500);
+      });
+    });
+  });
+};
 
 const checkCharactersOptions = () => {
   checkboxElements.forEach((checkbox) => {
@@ -142,22 +146,13 @@ const getPasswordCharacters = (charactersArray) => {
   } else {
     return charactersArray;
   }
-
-  // if (!checkbox.checked) {
-  //   if (e.target.id === "symbol" && e.target.checked === false) {
-  //   } else if (e.target.id === "number" && e.target.checked === false) {
-  //     return charactersArray.filter((char) => /^[a-zA-Z\W]$/.test(char));
-  //   } else {
-  //     return charactersArray;
-  //   }
-  // }
 };
 
 getPasswordCharacters(characters);
 
 const setPasswordLength = () => {
   btnSetters.forEach((btn) => {
-    btn.addEventListener("click", () => {
+    btn.addEventListener("click", (e) => {
       if (btn.id === "decrease" && passwordLength > MIN_CHAR_LENGTH) {
         passwordLength--;
         setPasswordLengthText(passwordLength);
@@ -204,5 +199,7 @@ const setPasswords = (passwordElements, passwords) => {
 
 btnGenerate.addEventListener("click", () => {
   let passwords = generatePasswords(characters, passwordLength);
-  setPasswords(passwordElements, passwords);
+  setPasswords(passwordTexts, passwords);
 });
+
+document.addEventListener("DOMContentLoaded", copyPassword);

@@ -1,15 +1,3 @@
-/*
-
-
-- Állítható legyen a jelszó hosszúsága -> max 20 karakter
-- Ha rákattint a felhasználó a mezőre, másolja ki a jelszót
-- Checkbox -> A felhasználó akar szimbólumot vagy nem
-           -> A felhasználó akar számot vagy sem
-
-
-
-*/
-
 /* =================
    Root Variables
    ================= */
@@ -89,16 +77,15 @@ button {
 }
 
 .container {
+  height: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100%;
 }
 
 .generator-container {
   background-color: var(--bg-container-light);
   padding: 1em;
-  max-width: 550px;
   text-align: center;
   border-radius: 6px;
 }
@@ -114,18 +101,18 @@ button {
   margin-top: 1em;
   border-top: 1px solid var(--divider-dark);
   padding-top: 1em;
+  position: relative;
 }
 
-.btn,
-.btn::after {
+.btn {
   width: 100%;
   border-radius: 6px;
   border: none;
   letter-spacing: 1px;
   font-size: 1rem;
   cursor: pointer;
-  position: relative;
   transition: all 0.3s ease;
+  position: relative;
 }
 
 .btn-small {
@@ -141,8 +128,7 @@ button {
   font-size: 1.5rem;
 }
 
-.btn-setter:hover,
-.btn-setter:focus {
+.btn-setter:hover {
   background-color: var(--btn-bg-color-1);
   color: #fff;
 }
@@ -152,8 +138,7 @@ button {
   color: #fff;
 }
 
-.btn-generate:hover,
-.btn-generate:focus {
+.btn-generate:hover {
   background-color: var(--btn-bg-color-1-darker);
 }
 
@@ -165,20 +150,30 @@ button {
   position: relative;
 }
 
-.btn-pw::after {
-  content: "Copy";
-  position: absolute;
-  display: block;
-  top: 0;
-  height: 100%;
-  transition: all 0.3s ease;
-  color: transparent;
-  padding-top: 1em;
+.btn-pw:hover {
+  background-color: var(--btn-bg-color-2-darker);
 }
 
-.btn-pw:hover::after {
-  background-color: rgba(0, 0, 0, 0.8);
-  color: var(--password-color);
+.copy-msg {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: rgba(0, 0, 0, 0.9);
+  width: 100%;
+  height: 100%;
+  color: white;
+  padding: 0.95em 0;
+  border-radius: 6px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  color: inherit;
+  opacity: 0;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.btn-pw.copied .copy-msg {
+  opacity: 1;
 }
 
 /* =================
@@ -186,7 +181,7 @@ button {
    ================= */
 
 .pw-length-text {
-  font-weight: bold;
+  font-weight: 600;
 }
 
 .pw-length-setter {
@@ -195,6 +190,7 @@ button {
   align-items: center;
   gap: 1rem;
   margin: 0.75em 0 0 0;
+  text-align: center;
 }
 
 .pw-length-setter > * {
@@ -229,3 +225,38 @@ https://moderncss.dev/pure-css-custom-checkbox-style/ */
 /* =================
    Media Queries
    ================= */
+
+@media (min-width: 768px) {
+  .generator-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: left;
+    padding: 3.25em;
+    width: 550px;
+    height: 550px;
+  }
+
+  .heading {
+    font-size: 2.5rem;
+  }
+
+  .heading span {
+    color: var(--heading-color-light-2);
+    font-size: 2.5rem;
+    display: block;
+  }
+
+  .settings {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 0.5em;
+  }
+
+  .checkbox-container {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 1.25em;
+  }
+}
