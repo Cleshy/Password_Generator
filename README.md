@@ -18,4 +18,4 @@ The **Password Generator** is a simple web application that allows users to gene
 
 ## Desktop View
 
-![Password Generator Desktop View](desktop.png)
+![screenshot](desktop.PNG)
