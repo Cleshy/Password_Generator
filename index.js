@@ -1,205 +1,121 @@
-const characters = [
-  "A",
-  "B",
-  "C",
-  "D",
-  "E",
-  "F",
-  "G",
-  "H",
-  "I",
-  "J",
-  "K",
-  "L",
-  "M",
-  "N",
-  "O",
-  "P",
-  "Q",
-  "R",
-  "S",
-  "T",
-  "U",
-  "V",
-  "W",
-  "X",
-  "Y",
-  "Z",
-  "a",
-  "b",
-  "c",
-  "d",
-  "e",
-  "f",
-  "g",
-  "h",
-  "i",
-  "j",
-  "k",
-  "l",
-  "m",
-  "n",
-  "o",
-  "p",
-  "q",
-  "r",
-  "s",
-  "t",
-  "u",
-  "v",
-  "w",
-  "x",
-  "y",
-  "z",
-  "0",
-  "1",
-  "2",
-  "3",
-  "4",
-  "5",
-  "6",
-  "7",
-  "8",
-  "9",
-  "~",
-  "`",
-  "!",
-  "@",
-  "#",
-  "$",
-  "%",
-  "^",
-  "&",
-  "*",
-  "(",
-  ")",
-  "_",
-  "-",
-  "+",
-  "=",
-  "{",
-  "[",
-  "}",
-  "]",
-  ",",
-  "|",
-  ":",
-  ";",
-  "<",
-  ">",
-  ".",
-  "?",
-  "/",
-];
+// Importing the config object and characters array from the config.js file
+// The config object contains the configuration options for the password generator
+import { config, characters } from "./config.js";
 
-let btnGenerate = document.querySelector(".btn-generate");
-let passwordButtons = document.querySelectorAll(".btn-pw");
-let passwordTexts = document.querySelectorAll(".btn-pw-text");
-let btnSetters = document.querySelectorAll(".btn-setter");
-let pwLength = document.querySelector(".pw-length");
-let checkboxElements = document.querySelectorAll(".checkBox");
+document.addEventListener("DOMContentLoaded", function () {
+  // Selecting elements from the DOM
+  const btnGenerate = document.querySelector(".btn-generate");
+  const passwordTexts = document.querySelectorAll(".btn-pw-text");
+  const btnSetters = document.querySelectorAll(".btn-setter");
+  const pwLength = document.querySelector(".pw-length");
+  const checkboxElements = document.querySelectorAll(".checkBox");
 
-const MIN_CHAR_LENGTH = 8;
-const MAX_CHAR_LENGTH = 20;
+  // Setting the initial password length
+  let passwordLength = config.MIN_PASSWORD_LENGTH;
 
-let passwordLength = MIN_CHAR_LENGTH;
+  // Helper functions
+  const setPasswordLengthText = (passwordLength) => {
+    pwLength.textContent = passwordLength;
+  };
 
-const charactersOptions = {
-  symbols: true,
-  numbers: true,
-};
+  const generateRandomNumber = (numberLength) => {
+    return Math.floor(Math.random() * numberLength);
+  };
 
-const copyPassword = () => {
-  passwordButtons.forEach((passwordBtn) => {
-    passwordBtn.addEventListener("click", (e) => {
-      const button = e.target.closest(".btn-pw");
-      const btnText = button.querySelector(".btn-pw-text").textContent;
+  // Function to get the characters based on the user's selection
+  const getPasswordCharacters = (charactersArray) => {
+    if (!config.symbols && !config.numbers) {
+      return charactersArray.filter((char) => /^[a-zA-Z]$/.test(char));
+    } else if (!config.symbols) {
+      return charactersArray.filter((char) => /^[a-zA-Z0-9]$/.test(char));
+    } else if (!config.numbers) {
+      return charactersArray.filter((char) => /^[a-zA-Z\W]$/.test(char));
+    } else {
+      return charactersArray;
+    }
+  };
 
-      navigator.clipboard.writeText(btnText).then(() => {
-        button.classList.add("copied");
+  const generatePasswords = (charArray, charLength) => {
+    let characters = getPasswordCharacters(charArray);
+    const passwords = [[], []];
 
-        setTimeout(() => {
-          button.classList.remove("copied");
-        }, 1500);
+    while (
+      passwords[0].length !== charLength &&
+      passwords[1].length !== charLength
+    ) {
+      let randomNumber1 = generateRandomNumber(characters.length);
+      let randomNumber2 = generateRandomNumber(characters.length);
+      passwords[0].push(characters[randomNumber1]);
+      passwords[1].push(characters[randomNumber2]);
+    }
+
+    return passwords;
+  };
+
+  const setPasswords = (passwordElements, passwords) => {
+    passwordElements.forEach((pwEl, index) => {
+      pwEl.textContent = passwords[index].join("");
+    });
+  };
+
+  // Event listeners
+  const checkCharactersOptions = () => {
+    checkboxElements.forEach((checkbox) => {
+      checkbox.addEventListener("change", (e) => {
+        config[e.target.id] = !config[e.target.id];
       });
     });
-  });
-};
+  };
 
-const checkCharactersOptions = () => {
-  checkboxElements.forEach((checkbox) => {
-    checkbox.addEventListener("change", (e) => {
-      charactersOptions[e.target.id] = !charactersOptions[e.target.id];
+  const setPasswordLength = () => {
+    btnSetters.forEach((btn) => {
+      btn.addEventListener("click", (e) => {
+        if (
+          btn.id === "decrease" &&
+          passwordLength > config.MIN_PASSWORD_LENGTH
+        ) {
+          passwordLength--;
+          setPasswordLengthText(passwordLength);
+        } else if (
+          btn.id === "increase" &&
+          passwordLength < config.MAX_PASSWORD_LENGTH
+        ) {
+          passwordLength++;
+          setPasswordLengthText(passwordLength);
+        }
+      });
     });
-  });
-};
+  };
 
-checkCharactersOptions();
+  const handleGeneratePasswords = () => {
+    btnGenerate.addEventListener("click", () => {
+      let passwords = generatePasswords(characters, passwordLength);
+      setPasswords(passwordTexts, passwords);
+    });
+  };
 
-const getPasswordCharacters = (charactersArray) => {
-  if (!charactersOptions.symbols && !charactersOptions.numbers) {
-    return charactersArray.filter((char) => /^[a-zA-Z]$/.test(char));
-  } else if (!charactersOptions.symbols) {
-    return charactersArray.filter((char) => /^[a-zA-Z0-9]$/.test(char));
-  } else if (!charactersOptions.numbers) {
-    return charactersArray.filter((char) => /^[a-zA-Z\W]$/.test(char));
-  } else {
-    return charactersArray;
-  }
-};
+  const handleCopyPassword = () => {
+    document.querySelector(".btn-container").addEventListener("click", (e) => {
+      if (e.target.closest(".btn-pw")) {
+        const button = e.target.closest(".btn-pw");
+        const btnText = button.querySelector(".btn-pw-text").textContent;
 
-getPasswordCharacters(characters);
-
-const setPasswordLength = () => {
-  btnSetters.forEach((btn) => {
-    btn.addEventListener("click", (e) => {
-      if (btn.id === "decrease" && passwordLength > MIN_CHAR_LENGTH) {
-        passwordLength--;
-        setPasswordLengthText(passwordLength);
-      } else if (btn.id === "increase" && passwordLength < MAX_CHAR_LENGTH) {
-        passwordLength++;
-        setPasswordLengthText(passwordLength);
+        navigator.clipboard.writeText(btnText).then(() => {
+          button.classList.add("copied");
+          setTimeout(() => button.classList.remove("copied"), 1500);
+        });
       }
     });
-  });
-};
+  };
 
-const setPasswordLengthText = (passwordLength) => {
-  pwLength.textContent = passwordLength;
-};
+  // Initialize the app
+  const init = () => {
+    setPasswordLength();
+    checkCharactersOptions();
+    handleGeneratePasswords();
+    handleCopyPassword();
+    setPasswordLengthText(passwordLength);
+  };
 
-setPasswordLength();
-
-const generateRandomNumber = (numberLength) => {
-  return Math.floor(Math.random() * numberLength);
-};
-
-const generatePasswords = (charArray, charLength) => {
-  let characters = getPasswordCharacters(charArray);
-  const passwords = [[], []];
-
-  while (
-    passwords[0].length !== charLength &&
-    passwords[1].length !== charLength
-  ) {
-    let randomNumber1 = generateRandomNumber(characters.length);
-    let randomNumber2 = generateRandomNumber(characters.length);
-    passwords[0].push(characters[randomNumber1]);
-    passwords[1].push(characters[randomNumber2]);
-  }
-
-  return passwords;
-};
-
-const setPasswords = (passwordElements, passwords) => {
-  passwordElements.forEach((pwEl, index) => {
-    pwEl.textContent = passwords[index].join("");
-  });
-};
-
-btnGenerate.addEventListener("click", () => {
-  let passwords = generatePasswords(characters, passwordLength);
-  setPasswords(passwordTexts, passwords);
+  init();
 });
-
-document.addEventListener("DOMContentLoaded", copyPassword);

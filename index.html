@@ -8,13 +8,18 @@
       href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Karla:ital,wght@0,200..800;1,200..800&display=swap"
       rel="stylesheet"
     />
+    <link rel="shortcut icon" href="#" />
     <link rel="stylesheet" href="index.css" />
+    <meta
+      name="description"
+      content="Generate secure random passwords with customizable options for length, symbols, and numbers."
+    />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Password Generator</title>
   </head>
   <body>
-    <div class="container">
-      <div class="generator-container">
+    <main class="container">
+      <section class="generator-container">
         <h1 class="heading">Generate a <span>random password</span></h1>
         <p class="description">Never use an insecure password again.</p>
         <div class="settings">
@@ -26,30 +31,22 @@
               <button id="increase" class="btn btn-small btn-setter">+</button>
             </div>
           </div>
-          <div class="checkbox-container">
+          <fieldset class="checkbox-container">
             <label for="symbols">
-              <input
-                class="checkBox"
-                type="checkbox"
-                name=""
-                id="symbols"
-                checked
-              />
+              <input class="checkBox" type="checkbox" id="symbols" checked />
               Symbols
             </label>
             <label for="numbers">
-              <input
-                class="checkBox"
-                type="checkbox"
-                name=""
-                id="numbers"
-                checked
-              />
+              <input class="checkBox" type="checkbox" id="numbers" checked />
               Numbers
             </label>
-          </div>
+          </fieldset>
         </div>
-        <button id="generateBtn" class="btn btn-large btn-generate">
+        <button
+          id="generateBtn"
+          class="btn btn-large btn-generate"
+          aria-label="Generate passwords"
+        >
           Generate passwords
         </button>
         <div class="btn-container">
@@ -62,8 +59,8 @@
             <span class="copy-msg">Copied!</span>
           </button>
         </div>
-      </div>
-    </div>
+      </section>
+    </main>
     <script
       type="module"
       src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"
@@ -72,6 +69,6 @@
       nomodule
       src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"
     ></script>
-    <script src="index.js"></script>
+    <script type="module" src="index.js"></script>
   </body>
 </html>

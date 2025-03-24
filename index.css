@@ -219,6 +219,10 @@ input[type="checkbox"] {
   accent-color: var(--btn-bg-color-1); /* Modern böngészőkben működik */
 }
 
+fieldset {
+  border: none;
+}
+
 /* Check out the link for checkbox styling 
 https://moderncss.dev/pure-css-custom-checkbox-style/ */
 
